@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista de animais encontrados {% endblock %}
+
+{% block content %}
+
+<h1> Animais encontrados </h1>
+
+<p> Está é a página com todos os animais que foram encontrados por alguém e registrados no nosso sistema.
+</p>
+
+<h2>Animais registrados</h2>
+<div class="table-responive">
+    <table class="table table-striped">
+        <tr>
+            <th>Espécie</th>
+            <th>Raça</th>
+            <th>Cor</th>
+            <th>Tamanho</th>
+            <th>Local</th>
+            <th>Caracteristicas</th>
+            <th>Data</th>
+            <th>Contato</th>
+        </tr>
+        
+        {% for task in encontrados %}
+        <tr>
+            <td>{{task.especie}}</td>
+            <td>{{task.raca}}</td>
+            <td>{{task.cor}}</td>
+            <td>{{task.tamanho}}</td>
+            <td>{{task.localidade}}</td>
+            <td>{{task.caracteristica}}</td>
+            <td>{{task.tempo}}</td>
+            <td>{{task.contato}}</td>
+        </tr>
+        {%endfor %}
+    </table>
+</div>
+
+{% endblock %}

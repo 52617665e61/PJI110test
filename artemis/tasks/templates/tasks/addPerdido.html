@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Adicionar pet perdido {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1> Adicionar um pet perdido</h1>
+
+    <p>Para cadastrar o animal perdido em nosso sistema é fácil, basta preencher o formulário abaixo e enviar. Pronto ele estará cadastrado.</p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit">
+
+    </form>
+        
+
+{% endblock %}
