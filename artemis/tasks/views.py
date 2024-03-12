@@ -74,5 +74,6 @@ def listaPerdidos(request):
 
 ##########################################################################################################################
 
-def informacoes(request):
-    return render(request, 'tasks/informacoes.html')
+def informacoes(request, id):
+    info = Perdido.objects.all().filter(id=id)
+    return render(request, 'tasks/informacoes.html', {'info': info})

@@ -32,11 +32,11 @@
                 sem imagem
             {% endif %}
             </td>
-            <td>{{task.especie}}{{task.raca}}</td>
+            <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
             <td>{{task.raca}}</td>
             <td>{{task.cor}}</td>
             <td>{{task.tamanho}}</td>
-            <td><a href="informacoes">Mais informações</a></td>          
+            <td><a href="informacoes/{{task.id}}">Mais informações</a></td>          
         </tr>
         {%endfor %}
     </table>

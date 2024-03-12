@@ -46,7 +46,8 @@ tamanho = (
 ##########################################################################################################################
 
 class Perdido(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    nome = models.CharField('Nome do animal', max_length=20, default='Pet')
+    id = models.IntegerField(primary_key=True)
     #fk = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
     especie = models.CharField(max_length=20, choices = especie)
     raca = models.CharField(max_length=20, choices = raca)
@@ -59,7 +60,7 @@ class Perdido(models.Model):
     adicional = models.CharField('Informações adicionais', null=True, max_length=300)
 
     def __str__(self):
-        return self.especie
+        return self.nome
 
 class Encontrado(models.Model):
     especie = models.CharField(max_length=20, choices=especie)
@@ -72,3 +73,5 @@ class Encontrado(models.Model):
     contato = models.CharField(max_length=20)
     img = models.ImageField(upload_to='animais/')
 
+    def __str__(self):
+        return "{},{}".format(self.especie, self.raca)

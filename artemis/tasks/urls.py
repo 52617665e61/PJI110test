@@ -12,5 +12,5 @@ urlpatterns = [
     path('perdido', views.perdido, name= 'perdido'),
     path('addPerdido', views.addPerdido, name='addPerdido'),    
     path('listaPerdidos', views.listaPerdidos, name='listaPerdidos'),
-    path('informacoes', views.informacoes, name='informacoes')
+    path('informacoes/<int:id>', views.informacoes, name='informacoes')
 ]
