@@ -4,10 +4,12 @@
 
 {% block content %}
 
-<h1> Encontrei um Pet </h1>
+<div class="text-box">
+    <h1> Encontrei um Pet </h1>
 
-<p>Caso tenha  encontrado um pet, primeiro vá até <a href="{% url 'listaEncontrados' %}">lista de encontrados</a> para ver se não há algum animal com a descrição do achado, caso negativo, preencha o formulário abaixo, para divulgar caracteristicas deste, para facilitar o mesmo de ser achado pelo dono.</p>
+    <p>Caso tenha  encontrado um pet, primeiro vá até <a href="{% url 'listaEncontrados' %}">lista de encontrados</a> para ver se não há algum animal com a descrição do achado, caso negativo, preencha o formulário abaixo, para divulgar caracteristicas deste, para facilitar o mesmo de ser achado pelo dono.</p>
 
-<a href="{% url 'addEncontrado' %}"><button>Add pet encontrado</button></a>
+    <a href="{% url 'addEncontrado' %}"><button>Add pet encontrado</button></a>
+</div>
 
 {% endblock %}

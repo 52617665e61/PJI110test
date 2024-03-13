@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap4',
+    
 ]
 
 # Crispy Forms
@@ -145,10 +146,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CONFIGURAÇÃO DE AUTENTICAÇÃO
 
 LOGOUT_REDIRECT_URL = 'login'
-LOGIN_REDIRECT_URL ='home'
+LOGIN_REDIRECT_URL ='/'
 LOGIN_URL = 'login'
 
 # MIDIA
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#JQUERY NATIVO DJANGO --- USANDO PARA SMART SELECTS
+

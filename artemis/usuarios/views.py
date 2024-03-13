@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import formularioRegistroUsuario
+from tasks.models import Encontrado
+from django.contrib.auth.models import User
 
 
 ##########################################################################################################################
@@ -20,10 +22,20 @@ def registroUsuario(request):
             senha = form.cleaned_data['password1']
             user = authenticate(username=usuario, password=senha)
             login(request, user)
-            return redirect('home')
+            return redirect('/')
     else:
         form = formularioRegistroUsuario()
 
 
     return render(request, 'registration/registroUsuario.html',{'form':form})
 
+##########################################################################################################################
+
+# PERFIL USUÁRIOS
+
+##########################################################################################################################
+
+def perfil(request):
+    registros = Encontrado.objects.all().filter(fk=request.user)
+
+    return render(request, 'registration/perfil.html', {'registros': registros})

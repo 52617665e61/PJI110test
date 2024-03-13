@@ -4,42 +4,43 @@
 
 {% block content %}
 
-<h1> Animais perdidos </h1>
+<div class="text-box">
+    <h1> Animais perdidos </h1>
 
-<p> Está é a página com todos os animais que foram perdidos por alguém e registrados no nosso sistema.
-</p>
+    <p> Está é a página com todos os animais que foram perdidos por alguém e registrados no nosso sistema.
+    </p>
 
-<h2>Animais registrados</h2>
-<div class="table-responive">
-    <table class="table table-striped">
-        <tr>
-            <th>Imagem</th>
-            <th>Espécie</th>
-            <th>Raça</th>
-            <th>Cor</th>
-            <th>Tamanho</th>
-            <th>Opções</th>
+    <h2>Animais registrados</h2>
+    <div class="table-responive table-edit">
+        <table class="table table-striped">
+            <tr>
+                <th>Imagem</th>
+                <th>Espécie</th>
+                <th>Raça</th>
+                <th>Cor</th>
+                <th>Tamanho</th>
+                <th>Opções</th>
+                
+                
+            </tr>
             
-            
-        </tr>
-        
-        {% for task in perdidos %}
-        <tr>
-            <td>
-            {% if task.img %}
-                <img src="{{task.img.url}}" height="150" width="200">
-            {% else %}
-                sem imagem
-            {% endif %}
-            </td>
-            <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
-            <td>{{task.raca}}</td>
-            <td>{{task.cor}}</td>
-            <td>{{task.tamanho}}</td>
-            <td><a href="informacoes/{{task.id}}">Mais informações</a></td>          
-        </tr>
-        {%endfor %}
-    </table>
+            {% for task in perdidos %}
+            <tr>
+                <td>
+                {% if task.img %}
+                    <img src="{{task.img.url}}" height="150" width="200">
+                {% else %}
+                    sem imagem
+                {% endif %}
+                </td>
+                <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
+                <td>{{task.raca}}</td>
+                <td>{{task.cor}}</td>
+                <td>{{task.tamanho}}</td>
+                <td><a href="informacoes/{{task.id}}">Mais informações</a></td>          
+            </tr>
+            {%endfor %}
+        </table>
+    </div>
 </div>
-
 {% endblock %}

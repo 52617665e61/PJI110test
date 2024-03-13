@@ -1,3 +1,3 @@
 from django.contrib import admin
+from tasks.models import  Encontrado
 
-# Register your models here.

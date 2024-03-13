@@ -5,14 +5,15 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Perdido, Encontrado
 from .forms import PerdidoForm, EncontradoForm
+from django.contrib.auth.models import User
 
 
 
 # Create your views here.
 
 
-def home(request):
-    return render(request, 'tasks/home.html')
+def index(request):
+    return render(request, 'tasks/index.html')
 
 ##########################################################################################################################
 
@@ -56,6 +57,8 @@ def addPerdido(request):
     if request.method == 'POST':
         form = PerdidoForm(request.POST, request.FILES)
         if form.is_valid():
+            form.save(commit=False)
+            form.usuario = '1'
             form.save()
             return redirect('/')
     else:
