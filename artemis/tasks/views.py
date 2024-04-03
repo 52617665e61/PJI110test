@@ -66,6 +66,7 @@ def addPerdido(request):
         return render(request, 'tasks/addPerdido.html', {'form': form})
 
 def listaPerdidos(request):
+     
      perdidos = Perdido.objects.all()
      return render(request, 'tasks/listaPerdidos.html', {'perdidos': perdidos})
 
