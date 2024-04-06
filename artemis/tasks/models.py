@@ -63,8 +63,8 @@ class Perdido(models.Model):
     contato = models.CharField(max_length=20)
     img = models.ImageField(null=True,blank=True, upload_to='animais/')
     adicional = models.CharField('Informações adicionais', null=True, max_length=300)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    usuario = models.IntegerField()
+    
     def __str__(self):
         return self.nome
 

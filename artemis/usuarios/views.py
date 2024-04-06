@@ -1,10 +1,20 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+
+from typing import Any
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import formularioRegistroUsuario
-from tasks.models import Encontrado
 from django.contrib.auth.models import User
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy
+from .models import Perfil
+from tasks.models import Encontrado, Perdido
+
+
+
+
 
 
 ##########################################################################################################################
@@ -13,8 +23,23 @@ from django.contrib.auth.models import User
 
 ##########################################################################################################################
 
-def registroUsuario(request):
-    if request.method=="POST":
+class RegistroUsuario(CreateView):
+    template_name ='registration/registroUsuario.html'
+    form_class = formularioRegistroUsuario
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        url = super().form_valid(form)
+        Perfil.objects.create(usuario=self.object)
+        return url
+
+    def get_context_data(self, *args,**kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo'] = 'Registro usuário'
+        context['botao'] = 'Cadastrar'
+        
+        return context
+    """if request.method=="POST":
         form = formularioRegistroUsuario(request.POST)
         if form.is_valid():
             form.save()
@@ -28,14 +53,23 @@ def registroUsuario(request):
 
 
     return render(request, 'registration/registroUsuario.html',{'form':form})
+"""
 
-##########################################################################################################################
+"""class Perfil(UpdateView):
+    template_name='refistration/perfil.html'
+    model = Perfil
+    fields = ['nome-completo', 'cpf']
+    success_url = reverse_lazy('index')
 
-# PERFIL USUÁRIOS
-
-##########################################################################################################################
+    
+    def get_context_data(self, *args, **kwargs: Any) -> dict[str, Any]:
+          context = super().get_context_data(*args, **kwargs)
+          context['titulo'] = 'Meus dados'
+          context['botao'] = 'Atualizar'
+          return super().get_context_data"""
 
 def perfil(request):
-    registros = Encontrado.objects.all().filter(fk=request.user)
-
-    return render(request, 'registration/perfil.html', {'registros': registros})
+    perfil = Perfil.objects.all().filter(usuario=request.user.id)
+    encontrado = Encontrado.objects.all().filter(fk=request.user.id)
+    perdido = Perdido.objects.all().filter(usuario=request.user.id)
+    return render(request, 'registration/perfil.html', {'perfil':perfil, 'encontrado': encontrado, 'perdido': perdido}) 

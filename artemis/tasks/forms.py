@@ -5,10 +5,9 @@ from django.contrib.admin.widgets import AdminDateWidget
 class PerdidoForm(forms.ModelForm):
     class Meta:
         model = Perdido
-        fields = ('especie', 'raca', 'cor', 'tamanho', 'tempo', 'contato','img', 'adicional','usuario')
+        fields = ('especie', 'raca', 'cor', 'tamanho', 'tempo', 'contato','img', 'adicional')
         widgets = {
-            'tempo': forms.TextInput(attrs={'placeholder':'dd/mm/yyyy'}),
-            'usuario':forms.HiddenInput()
+            'tempo': forms.TextInput(attrs={'placeholder':'dd/mm/yyyy'})
         }
         labels = {
             'especie': 'Espécie do animal perdido',

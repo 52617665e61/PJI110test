@@ -4,9 +4,11 @@
 
 {% block content %}
 
+
+
 <div class="text-box">
     
-
+    
     {% for task in info %}
 
 
@@ -26,12 +28,16 @@
                 Caracteristicas:{{task.caracteristica}}<br>
                 Data:{{task.tempo}}<br>
                 Contato:{{task.contato}}<br>
+                {% if user.id == task.usuario %}
+                <a href="editarRegistro/{{task.id}}">Editar</a><br>
+                <a href="{% url 'deletaRegistro' task.id %}">Excluir</a>
+                {% endif %}
                 
         </div>
     </div>
 </div>
 
-{% endfor %}
+    {% endfor %}
 
 
 {% endblock %}

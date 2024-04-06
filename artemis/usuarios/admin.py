@@ -1,3 +1,6 @@
 from django.contrib import admin
-from tasks.models import  Encontrado
+from .models import Perfil, Profile
+
+admin.site.register(Profile)
+admin.site.register(Perfil)
 

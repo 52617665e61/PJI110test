@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.template import loader
 from .models import Perdido, Encontrado
 from .forms import PerdidoForm, EncontradoForm
-from django.contrib.auth.models import User
+
 
 
 
@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     return render(request, 'tasks/index.html')
+
 
 ##########################################################################################################################
 
@@ -55,11 +56,11 @@ def perdido(request):
 @login_required
 def addPerdido(request):
     if request.method == 'POST':
-        form = PerdidoForm(request.POST, request.FILES)
+        form = PerdidoForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.usuario = '1'
-            form.save()
+            processo = form.save(commit=False)
+            processo.usuario = request.user.id
+            processo.save()
             return redirect('/')
     else:
         form = PerdidoForm()
@@ -81,3 +82,20 @@ def listaPerdidos(request):
 def informacoes(request, id):
     info = Perdido.objects.all().filter(id=id)
     return render(request, 'tasks/informacoes.html', {'info': info})
+
+@login_required
+def editarRegistro(request, id):
+    registro = Perdido.objects.get(id=id)
+    form = PerdidoForm(request.POST or None, instance=registro)
+    if form.is_valid():
+        form.save()
+        return redirect('listaPerdidos')
+    return render(request, 'tasks/editarRegistro.html', {'registro': registro, 
+                                                         'form':form})
+
+@login_required
+def deletaRegistro(request, id):
+    registro = Perdido.objects.get(id=id)
+    registro.delete()
+    return redirect('perfil')
+    

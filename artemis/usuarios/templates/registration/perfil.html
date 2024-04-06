@@ -2,42 +2,91 @@
 
 {% block title %} Perfil {% endblock %}
 
-{% block content %}
+{% block content %} 
+<div class="text-box">
+    <h1> Meu Perfil </h1>
 
-<h2>Meus registros</h2>
+    <p> Está pagínas contém informações do usuário.<br>
+    <a href="editarPerfil">Editar Perfil</a>
+    <a href="excluirPerfil">Excluir Perfil</a>
+    </p>
 
+{% for task in perfil %}
 
-    
-<div class="table-responive">
-        <table class="table table-striped">
-        <tr>
-            <th>Imagem</th>
-            <th>Espécie</th>
-            <th>Raça</th>
-            <th>Cor</th>
-            <th>Tamanho</th>
-            <th>Opções</th>
-            
-            
-        </tr>
-        
-        {% for task in registros %}
-        <tr>
-            <td>
-            {% if task.img %}
-                <img src="{{task.img.url}}" height="150" width="200">
-            {% else %}
-                sem imagem
-            {% endif %}
-            </td>
-            <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
-            <td>{{task.raca}}</td>
-            <td>{{task.cor}}</td>
-            <td>{{task.tamanho}}</td>
-            <td><a href="informacoes/{{task.id}}">Mais informações</a></td>          
-        </tr>
-        {%endfor %}
-        </table>
+Usuario: {{task.nome_completo}}<br>
+E-mail: {{user.email}}<br>
+Nome: {{user.primeiroNome}}<br>
+Sobrenome: {{user.ultimoNome}}<br>
+Cpf: {{task.cpf}}
+{% endfor %}
 </div>
+
+    <div class="table-responive table-edit">
+        <h2>Meus Registros de encontrados</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Imagem</th>
+                <th>Espécie</th>
+                <th>Raça</th>
+                <th>Cor</th>
+                <th>Tamanho</th>
+                <th>Opções</th>
+                
+                
+            </tr>
+            
+            {% for task in encontrado %}
+                <td>
+                {% if task.img %}
+                    <img src="{{task.img.url}}" height="150" width="200">
+                {% else %}
+                    sem imagem
+                {% endif %}
+                </td>
+                <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
+                <td>{{task.raca}}</td>
+                <td>{{task.cor}}</td>
+                <td>{{task.tamanho}}</td>
+                <td><a href="informacoes/{{task.id}}">Mais informações</a><br>
+                <a href ="editar/{{task.id}}">Editar</a><br>
+                <a href=>Excluir</a></td>          
+            </tr>
+            {%endfor %}
+        </table>
+    </div>
+
+    <div class="table-responive table-edit">
+        <h2>Meus Registros de perdidos</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Imagem</th>
+                <th>Espécie</th>
+                <th>Raça</th>
+                <th>Cor</th>
+                <th>Tamanho</th>
+                <th>Opções</th>
+                
+                
+            </tr>
+            
+            {% for task in perdido %}
+                <td>
+                {% if task.img %}
+                    <img src="{{task.img.url}}" height="150" width="200">
+                {% else %}
+                    sem imagem
+                {% endif %}
+                </td>
+                <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
+                <td>{{task.raca}}</td>
+                <td>{{task.cor}}</td>
+                <td>{{task.tamanho}}</td>
+                <td><a href="informacoes/{{task.id}}">Mais informações</a><br>
+                <a href ="editar/{{task.id}}">Editar</a><br>
+                <a href="{% url 'deletaRegistro' task.id%}"">Excluir</a></td>          
+            </tr>
+            {%endfor %}
+        </table>
+    </div>
 
 {% endblock %}
