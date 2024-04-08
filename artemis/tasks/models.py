@@ -61,7 +61,7 @@ class Perdido(models.Model):
     localidade = models.CharField(max_length=20)
     tempo = models.DateField()
     contato = models.CharField(max_length=20)
-    img = models.ImageField(null=True,blank=True, upload_to='animais/')
+    img = models.ImageField(null=True, upload_to='animais/')
     adicional = models.CharField('Informações adicionais', null=True, max_length=300)
     usuario = models.IntegerField()
     

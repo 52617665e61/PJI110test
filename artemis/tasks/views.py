@@ -56,7 +56,7 @@ def perdido(request):
 @login_required
 def addPerdido(request):
     if request.method == 'POST':
-        form = PerdidoForm(request.POST)
+        form = PerdidoForm(request.POST, request.FILES)
         if form.is_valid():
             processo = form.save(commit=False)
             processo.usuario = request.user.id
@@ -68,7 +68,7 @@ def addPerdido(request):
 
 def listaPerdidos(request):
      
-     perdidos = Perdido.objects.all()
+     perdidos = Perdido.objects.all().order_by('-id')
      return render(request, 'tasks/listaPerdidos.html', {'perdidos': perdidos})
 
 ##########################################################################################################################
@@ -86,12 +86,13 @@ def informacoes(request, id):
 @login_required
 def editarRegistro(request, id):
     registro = Perdido.objects.get(id=id)
-    form = PerdidoForm(request.POST or None, instance=registro)
+    form = PerdidoForm(request.POST or None, request.FILES or None,instance=registro)
     if form.is_valid():
         form.save()
-        return redirect('listaPerdidos')
+        return redirect('perfil')
     return render(request, 'tasks/editarRegistro.html', {'registro': registro, 
                                                          'form':form})
+
 
 @login_required
 def deletaRegistro(request, id):
