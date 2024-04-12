@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.template import loader
-from .models import Perdido, Encontrado
-from .forms import PerdidoForm, EncontradoForm
+from .models import AnimaisRegistrados
+from .forms import AnimaisRegistroForm
 
 
 
@@ -25,7 +22,7 @@ def index(request):
 ##########################################################################################################################
 
 def listaEncontrados(request):
-     encontrados = Encontrado.objects.all()
+     encontrados = AnimaisRegistrados.objects.all().order_by('-id').filter(tipoRegistro='Encontrado')
      return render(request, 'tasks/listaEncontrados.html', {'encontrados': encontrados})
 
 
@@ -35,12 +32,15 @@ def encontrado(request):
 @login_required
 def addEncontrado(request):
     if request.method == 'POST':
-        form = EncontradoForm(request.POST)
+        form = AnimaisRegistroForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            processo = form.save(commit=False)
+            processo.usuario = request.user.id
+            processo.tipoRegistro = 'Encontrado'
+            processo.save()
+            return redirect('perfil')
     else:
-        form = EncontradoForm()
+        form = AnimaisRegistroForm()
         return render(request, 'tasks/addEncontrado.html', {'form': form})
     
 ##########################################################################################################################
@@ -56,19 +56,20 @@ def perdido(request):
 @login_required
 def addPerdido(request):
     if request.method == 'POST':
-        form = PerdidoForm(request.POST, request.FILES)
+        form =AnimaisRegistroForm(request.POST, request.FILES)
         if form.is_valid():
             processo = form.save(commit=False)
             processo.usuario = request.user.id
+            processo.tipoRegistro = 'Perdido'
             processo.save()
-            return redirect('/')
+            return redirect('perfil')
     else:
-        form = PerdidoForm()
+        form = AnimaisRegistroForm()
         return render(request, 'tasks/addPerdido.html', {'form': form})
 
 def listaPerdidos(request):
      
-     perdidos = Perdido.objects.all().order_by('-id')
+     perdidos = AnimaisRegistrados.objects.all().order_by('-id').filter(tipoRegistro='Perdido')
      return render(request, 'tasks/listaPerdidos.html', {'perdidos': perdidos})
 
 ##########################################################################################################################
@@ -80,13 +81,13 @@ def listaPerdidos(request):
 ##########################################################################################################################
 
 def informacoes(request, id):
-    info = Perdido.objects.all().filter(id=id)
+    info = AnimaisRegistrados.objects.all().filter(id=id)
     return render(request, 'tasks/informacoes.html', {'info': info})
 
 @login_required
 def editarRegistro(request, id):
-    registro = Perdido.objects.get(id=id)
-    form = PerdidoForm(request.POST or None, request.FILES or None,instance=registro)
+    registro = AnimaisRegistrados.objects.get(id=id)
+    form = AnimaisRegistroForm(request.POST or None, request.FILES or None,instance=registro)
     if form.is_valid():
         form.save()
         return redirect('perfil')
@@ -96,7 +97,7 @@ def editarRegistro(request, id):
 
 @login_required
 def deletaRegistro(request, id):
-    registro = Perdido.objects.get(id=id)
+    registro = AnimaisRegistrados.objects.get(id=id)
     registro.delete()
     return redirect('perfil')
     

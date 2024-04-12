@@ -7,5 +7,4 @@ urlpatterns=[
     path('registroUsuario', RegistroUsuario.as_view(), name='registroUsuario'),
     path('perfil', views.perfil, name='perfil')
 
-    
     ]

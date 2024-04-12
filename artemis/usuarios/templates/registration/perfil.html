@@ -13,11 +13,11 @@
 
 {% for task in perfil %}
 
-Usuario: {{task.nome_completo}}<br>
+Usuario: {{user.username}}<br>
 E-mail: {{user.email}}<br>
-Nome: {{user.primeiroNome}}<br>
-Sobrenome: {{user.ultimoNome}}<br>
-Cpf: {{task.cpf}}
+Nome: {{task.primeiroNome}}<br>
+Sobrenome: {{task.ultimoNome}}<br>
+
 {% endfor %}
 </div>
 
@@ -26,6 +26,7 @@ Cpf: {{task.cpf}}
         <table class="table table-striped">
             <tr>
                 <th>Imagem</th>
+                <th>Nome</th>
                 <th>Espécie</th>
                 <th>Raça</th>
                 <th>Cor</th>
@@ -35,7 +36,8 @@ Cpf: {{task.cpf}}
                 
             </tr>
             
-            {% for task in encontrado %}
+            {% for task in registros %}
+            {% if task.tipoRegistro == 'Encontrado' %}
                 <td>
                 {% if task.img %}
                     <img src="{{task.img.url}}" height="150" width="200">
@@ -43,15 +45,17 @@ Cpf: {{task.cpf}}
                     sem imagem
                 {% endif %}
                 </td>
-                <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
+                <td>{{task.especie}}</td>
+                <td>{{task.nome}}</td>
                 <td>{{task.raca}}</td>
                 <td>{{task.cor}}</td>
                 <td>{{task.tamanho}}</td>
                 <td><a href="informacoes/{{task.id}}">Mais informações</a><br>
-                <a href ="editar/{{task.id}}">Editar</a><br>
+                <a href ="informacoes/editarRegistro/{{task.id}}">Editar</a><br>
                 <a href=>Excluir</a></td>          
             </tr>
-            {%endfor %}
+            {% endif %}
+            {% endfor %}
         </table>
     </div>
 
@@ -60,6 +64,7 @@ Cpf: {{task.cpf}}
         <table class="table table-striped">
             <tr>
                 <th>Imagem</th>
+                <th>Nome</th>
                 <th>Espécie</th>
                 <th>Raça</th>
                 <th>Cor</th>
@@ -69,7 +74,9 @@ Cpf: {{task.cpf}}
                 
             </tr>
             
-            {% for task in perdido %}
+           
+            {% for task in registros %}
+            {% if task.tipoRegistro == 'Perdido' %}
                 <td>
                 {% if task.img %}
                     <img src="{{task.img.url}}" height="150" width="200">
@@ -77,15 +84,18 @@ Cpf: {{task.cpf}}
                     sem imagem
                 {% endif %}
                 </td>
-                <td>{{task.especie}}{{task.raca}}{{task.id}}</td>
+                <td>{{task.especie}}</td>
+                <td>{{task.nome}}</td>
                 <td>{{task.raca}}</td>
                 <td>{{task.cor}}</td>
                 <td>{{task.tamanho}}</td>
                 <td><a href="informacoes/{{task.id}}">Mais informações</a><br>
-                <a href ="editar/{{task.id}}">Editar</a><br>
+                <a href ="informacoes/editarRegistro/{{task.id}}">Editar</a><br>
                 <a href="{% url 'deletaRegistro' task.id%}"">Excluir</a></td>          
             </tr>
+            {% endif %}
             {%endfor %}
+            
         </table>
     </div>
 

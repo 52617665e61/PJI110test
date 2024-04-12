@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Perdido, Encontrado
+from .models import AnimaisRegistrados
 
 
 # Register your models here.
 
-admin.site.register(Perdido)
-admin.site.register(Encontrado)
+admin.site.register(AnimaisRegistrados)
+

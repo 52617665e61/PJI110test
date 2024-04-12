@@ -51,7 +51,7 @@ tamanho = (
 
 
 
-class Perdido(models.Model):
+class AnimaisRegistrados(models.Model):
     nome = models.CharField('Nome do animal', max_length=20, default='Pet')
     id = models.IntegerField(primary_key=True)
     especie = models.CharField(max_length=20, choices = especie)
@@ -61,25 +61,11 @@ class Perdido(models.Model):
     localidade = models.CharField(max_length=20)
     tempo = models.DateField()
     contato = models.CharField(max_length=20)
-    img = models.ImageField(null=True, upload_to='animais/')
+    img = models.ImageField(null=True, blank=True, upload_to='animais/')
     adicional = models.CharField('Informações adicionais', null=True, max_length=300)
     usuario = models.IntegerField()
+    tipoRegistro = models.CharField(max_length=10)
     
     def __str__(self):
         return self.nome
 
-class Encontrado(models.Model):
-    id = models.IntegerField(primary_key=True)
-    fk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    especie = models.CharField(max_length=20, choices = especie)
-    raca = models.CharField(max_length=20, choices = raca)
-    cor = models.CharField(max_length=20, choices=cor)
-    tamanho = models.CharField(max_length=20, choices = tamanho)
-    localidade = models.CharField(max_length=20)
-    tempo = models.DateField()
-    contato = models.CharField(max_length=20)
-    img = models.ImageField(null=True,blank=True, upload_to='animais/')
-    adicional = models.CharField('Informações adicionais', null=True, max_length=300)
-
-    def __str__(self):
-        return "{},{}".format(self.especie, self.raca)

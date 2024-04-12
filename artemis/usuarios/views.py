@@ -4,13 +4,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .forms import formularioRegistroUsuario
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from .models import Perfil
-from tasks.models import Encontrado, Perdido
+from tasks.models import AnimaisRegistrados
 
 
 
@@ -39,6 +40,8 @@ class RegistroUsuario(CreateView):
         context['botao'] = 'Cadastrar'
         
         return context
+    
+
     """if request.method=="POST":
         form = formularioRegistroUsuario(request.POST)
         if form.is_valid():
@@ -68,8 +71,8 @@ class RegistroUsuario(CreateView):
           context['botao'] = 'Atualizar'
           return super().get_context_data"""
 
+@login_required
 def perfil(request):
     perfil = Perfil.objects.all().filter(usuario=request.user.id)
-    encontrado = Encontrado.objects.all().filter(fk=request.user.id)
-    perdido = Perdido.objects.all().filter(usuario=request.user.id)
-    return render(request, 'registration/perfil.html', {'perfil':perfil, 'encontrado': encontrado, 'perdido': perdido}) 
+    registros= AnimaisRegistrados.objects.all().filter(usuario=request.user.id)
+    return render(request, 'registration/perfil.html', {'perfil':perfil, 'registros': registros}) 

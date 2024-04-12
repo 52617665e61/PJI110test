@@ -11,7 +11,7 @@
 
     <p>Para cadastrar o animal encontrado em nosso sistema é fácil, basta preencher o formulário abaixo e enviar. Pronto ele estará cadastrado.</p>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form|crispy}}
         

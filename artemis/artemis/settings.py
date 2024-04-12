@@ -35,7 +35,6 @@ INSTALLED_APPS = [
 
     #MY APPS
     'tasks',
-    'cadastros',
     'usuarios',
     
 

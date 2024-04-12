@@ -19,15 +19,15 @@
 
 
         <div class="info-full">
-            
-                Espécie:{{task.especie}} <br>
-                Raça:{{task.raca}}<br>
-                Cor:{{task.cor}}<br>
-                Tamanho:{{task.tamanho}}<br>
-                Local:{{task.localidade}}<br>
-                Caracteristicas:{{task.caracteristica}}<br>
-                Data:{{task.tempo}}<br>
-                Contato:{{task.contato}}<br>
+
+                Nome: {{task.nome}}<br>
+                Espécie: {{task.especie}} <br>
+                Raça: {{task.raca}}<br>
+                Cor: {{task.cor}}<br>
+                Tamanho: {{task.tamanho}}<br>
+                Data: {{task.tempo}}<br>
+                Contato: {{task.contato}}<br>
+                Informações Adicionais: {{task.informacoes}}<br>
                 {% if user.id == task.usuario %}
                 <a href="editarRegistro/{{task.id}}">Editar</a><br>
                 <a href="{% url 'deletaRegistro' task.id %}">Excluir</a>
