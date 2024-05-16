@@ -58,7 +58,7 @@ class RegistroUsuario(CreateView):
     return render(request, 'registration/registroUsuario.html',{'form':form})
 """
 
-"""class Perfil(UpdateView):
+'''class Perfil(UpdateView):
     template_name='refistration/perfil.html'
     model = Perfil
     fields = ['nome-completo', 'cpf']
@@ -69,7 +69,7 @@ class RegistroUsuario(CreateView):
           context = super().get_context_data(*args, **kwargs)
           context['titulo'] = 'Meus dados'
           context['botao'] = 'Atualizar'
-          return super().get_context_data"""
+          return super().get_context_data'''
 
 @login_required
 def perfil(request):
